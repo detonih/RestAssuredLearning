@@ -3,6 +3,7 @@ package testing_rest;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
@@ -17,7 +18,8 @@ public class SimpleGetTest {
         this.getStatusLine();
         this.getResponseHeaders();
         this.IteratingOverHeaders();
-        getResponseBody();
+        this.getResponseBody();
+        this.verifyNodeInJsonResponse();
     }
 
     @Test
@@ -118,6 +120,31 @@ public class SimpleGetTest {
         String bodyAsString = responseBody.asString();
         System.out.println(bodyAsString);
         Assert.assertEquals(bodyAsString.toLowerCase().contains("message"), true);
+    }
+
+    public void verifyNodeInJsonResponse() {
+        RestAssured.baseURI = "https://central-de-erros-squad3.herokuapp.com";
+
+        RequestSpecification httpRequest = RestAssured.given();
+
+        Response response = httpRequest.get("/");
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+
+        String message = jsonPathEvaluator.get("message");
+        System.out.println(message);
+
+        Assert.assertEquals(message, "Access the documentation", "Correct value received in the Response");
+
+        String docs = jsonPathEvaluator.get("docs");
+        System.out.println(docs);
+
+        Assert.assertEquals(docs, "https://central-de-erros-squad3.herokuapp.com/api-docs", "Correct value received in the Response");
+
+        // try this method later to find out if there is a way to iterate through objects or arrays provided by the response body
+        // maybe we can use "dot" notation to access over arrays, like [0].properties or object nodes
+        // Object otherWayToGetJsonPath = jsonPathEvaluator.getJsonObject("message");
+
     }
 
 }
