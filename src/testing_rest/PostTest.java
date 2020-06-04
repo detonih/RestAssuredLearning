@@ -2,15 +2,16 @@ package testing_rest;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
 import org.testng.Assert;
-
 import java.util.LinkedHashMap;
 
 public class PostTest {
 
     public PostTest() {
+
         this.validateSignup();
     }
 
@@ -21,7 +22,7 @@ public class PostTest {
 
         JSONObject requestParams = new JSONObject();
         requestParams.put("name", "Fulano de Tal");
-        requestParams.put("email", "fulanodetal1234@email.com");
+        requestParams.put("email", "fulanodetal12345@email.com");
         requestParams.put("password", "123456");
 
         httpRequest.header("Content-Type", "application/json");
@@ -45,4 +46,6 @@ public class PostTest {
         System.out.println("data created => " + dataCreated);
 
     }
+
+
 }
