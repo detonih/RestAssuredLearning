@@ -11,5 +11,6 @@
     <orderEntry type="library" exported="" name="json-simple-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="rest-assured-4.3.0" level="project" />
     <orderEntry type="library" exported="" name="testng-7.1.0" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.8.6" level="project" />
   </component>
 </module>
